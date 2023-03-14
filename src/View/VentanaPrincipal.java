@@ -16,6 +16,8 @@ import Model.Nivel;
 
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
@@ -285,6 +287,12 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(chkMatricula, gbc_chkMatricula);
 
 		JButton btGuardar = new JButton("Guardar");
+		btGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				guardar();
+			}
+		});
 		GridBagConstraints gbc_btGuardar = new GridBagConstraints();
 		gbc_btGuardar.insets = new Insets(0, 0, 0, 5);
 		gbc_btGuardar.gridx = 2;
@@ -344,14 +352,25 @@ public class VentanaPrincipal extends JFrame {
 			jCodigo.setText(m.getCodigo());
 			jURL.setText(m.getUrlClassroom());
 			jFecha.setText("" + m.getFechaInicio());
-			
-			
+	
+		}
+	
+	}
+	
+	private void guardar() {
+		
+		Materia m = (Materia) this.comboMateria.getSelectedItem();
+		
+		int row = ControllerMateria.modificar(m);
+		
+		if (row == 1) {
+			JOptionPane.showInternalMessageDialog(null, 
+					"Han sido afectadas "+row+" filas");
+		} else {
+			JOptionPane.showInternalMessageDialog(null, 
+					"Error, no se ha modicado ningun registro");
 		}
 		
-
-
-
-
 	}
 
 }
